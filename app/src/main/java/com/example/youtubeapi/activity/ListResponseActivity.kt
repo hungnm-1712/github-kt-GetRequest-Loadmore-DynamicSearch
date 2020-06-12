@@ -1,7 +1,9 @@
 package com.example.youtubeapi.activity
 
 import android.os.Bundle
-import android.widget.Toast
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.youtubeapi.R
@@ -15,7 +17,7 @@ import okhttp3.*
 import java.io.IOException
 import java.lang.Exception
 
-class ListYoutubeActivity : YouTubeBaseActivity() {
+class ListResponseActivity : YouTubeBaseActivity() {
 
     private val client = OkHttpClient()
 
@@ -27,7 +29,10 @@ class ListYoutubeActivity : YouTubeBaseActivity() {
 
     // Link 1
     var linkurl: String =
-        "https://api.mixcloud.com/search/?limit=20&offset=0&q=hung&type=cloudcast";
+        "https://api.mixcloud.com/search/?limit=20&offset=0&q=hung&type=cloudcast"
+
+    var linkSearch: String =
+        "https://api.mixcloud.com/search/?limit=20&offset=0&q=hung&type=cloudcast"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +40,44 @@ class ListYoutubeActivity : YouTubeBaseActivity() {
         setTitle("List youtube")
         runHttp(linkurl)
         initScrollListener()
+
         initAdapter()
+
+        search()
     }
+
+    fun search() {
+        edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                println("TEXT: " + s)
+
+                if (!s.isEmpty()) {
+                    linkSearch =
+                        "https://api.mixcloud.com/search/?limit=20&offset=0&q=" + s + "&type=cloudcast"
+
+                } else {
+                    linkSearch = linkurl
+                }
+                arrayData.clear()
+                runHttp(linkSearch)
+                println(linkSearch)
+
+
+            }
+        })
+    }
+
 
     // Get request from http
     private fun runHttp(URL: String) {
@@ -65,7 +106,7 @@ class ListYoutubeActivity : YouTubeBaseActivity() {
                             // Bóc json sang model SearchResponse
                             val searchResponse = gson.fromJson(body, SearchResponse::class.java)
 
-                            linkurl = searchResponse.paging.next
+                            linkSearch = searchResponse.paging.next
                             arrayData?.addAll(searchResponse.data)
 
                             //add to RecyclerView
@@ -83,8 +124,8 @@ class ListYoutubeActivity : YouTubeBaseActivity() {
     // Add data to recyclerView
     fun initAdapter() {
         rvList.layoutManager =
-            LinearLayoutManager(this@ListYoutubeActivity, RecyclerView.VERTICAL, false);
-        rvList.adapter = RecyclerViewAdapter(this@ListYoutubeActivity, arrayData)
+            LinearLayoutManager(this@ListResponseActivity, RecyclerView.VERTICAL, false);
+        rvList.adapter = RecyclerViewAdapter(this@ListResponseActivity, arrayData)
     }
 
     fun initScrollListener() {
@@ -96,7 +137,9 @@ class ListYoutubeActivity : YouTubeBaseActivity() {
                     val lastVisibleItemPosition =
                         (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                     if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition >= recyclerView.adapter!!.itemCount - 1) {
-                        runHttp(linkurl)
+
+                        runHttp(linkSearch)
+                        println("Link Loadmore"+linkSearch)
                         // Add more here
 
                     }

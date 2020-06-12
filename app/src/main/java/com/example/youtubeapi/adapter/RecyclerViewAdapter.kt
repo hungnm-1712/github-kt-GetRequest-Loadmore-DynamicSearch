@@ -14,11 +14,13 @@ import com.example.youtubeapi.model.MakeCloudModel
 
 // Kế thừa RecyclerView.ViewHolder
 class RecyclerViewAdapter(var context: Context, var responseList: ArrayList<MakeCloudModel>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     // Trạng thái còn dữ liệu hay không:
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 /////////// Khi còn dữ liệu thì hiển thị, hết dữ liệu thì hiện ProgressBar

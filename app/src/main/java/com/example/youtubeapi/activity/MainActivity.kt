@@ -3,15 +3,8 @@ package com.example.youtubeapi.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.bumptech.glide.Glide
 import com.example.youtubeapi.R
-import com.example.youtubeapi.model.SearchResponse
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.*
-import java.io.IOException
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 //    }
     fun openLoadList(){
         btnLoadList.setOnClickListener {
-            startActivity( Intent(this, ListYoutubeActivity::class.java))
+            startActivity( Intent(this, ListResponseActivity::class.java))
         }
     }
 

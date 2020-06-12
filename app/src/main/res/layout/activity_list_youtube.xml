@@ -4,28 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ListYoutubeActivity">
+    android:orientation="vertical"
+    tools:context=".activity.ListResponseActivity">
+
     <EditText
         android:id="@+id/edtSearch"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:padding="5dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:hint="Search..."
-        android:imeOptions="actionSearch"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textSize="14sp"/>
-<!--    <ListView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/lvYoutube"-->
-<!--        />-->
+        android:layout_height="wrap_content"
+        android:hint="Search here"
+        android:imeOptions="actionSearch" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rvList"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>
