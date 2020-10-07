@@ -25,7 +25,7 @@ class RecyclerViewAdapter(var context: Context, var responseList: ArrayList<Make
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 /////////// Khi còn dữ liệu thì hiển thị, hết dữ liệu thì hiện ProgressBar
         return if (viewType === VIEW_TYPE_ITEM) {
-            val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.recyclerview_youtube, parent, false)
+            val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.rv_youtube, parent, false)
             return DataViewHolder(view)
         } else {
             val view: View = LayoutInflater.from(parent.context).inflate(R.layout.progress_bar, parent, false)

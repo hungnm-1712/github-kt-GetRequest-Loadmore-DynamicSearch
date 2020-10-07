@@ -20,30 +20,25 @@ import java.lang.Exception
 class ListResponseActivity : YouTubeBaseActivity() {
 
     private val client = OkHttpClient()
-
     // Gson: Convert json to object
     val gson = Gson()
-
     // Array data from http
     var arrayData = arrayListOf<MakeCloudModel>()
-
     // Link 1
     var linkurl: String =
         "https://api.mixcloud.com/search/?limit=20&offset=0&q=hung&type=cloudcast"
-
     var linkSearch: String =
         "https://api.mixcloud.com/search/?limit=20&offset=0&q=hung&type=cloudcast"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_youtube)
         setTitle("List youtube")
-        runHttp(linkurl)
-        initScrollListener()
+        runHttp("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&type=video&regionCode=vn&q=karaoke&relevanceLanguage=vi&key%20=AIzaSyDjpKNQ2HBW1znIVZ5RE4pPXVmQ0jInoJ8")
+        //initScrollListener()
 
-        initAdapter()
+      //  initAdapter()
 
-        search()
+       // search()
     }
 
     fun search() {
@@ -55,25 +50,20 @@ class ListResponseActivity : YouTubeBaseActivity() {
                 count: Int, after: Int
             ) {
             }
-
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
                 println("TEXT: " + s)
-
                 if (!s.isEmpty()) {
                     linkSearch =
                         "https://api.mixcloud.com/search/?limit=20&offset=0&q=" + s + "&type=cloudcast"
-
                 } else {
                     linkSearch = linkurl
                 }
                 arrayData.clear()
                 runHttp(linkSearch)
                 println(linkSearch)
-
-
             }
         })
     }
@@ -81,7 +71,6 @@ class ListResponseActivity : YouTubeBaseActivity() {
 
     // Get request from http
     private fun runHttp(URL: String) {
-
         //Tạo request
         val request = Request.Builder()
             .url(URL)
@@ -101,16 +90,16 @@ class ListResponseActivity : YouTubeBaseActivity() {
                         try {
                             //Đọc json
                             val body = response?.body()?.string()
-
+                            println("YOUTUBE : " + body )
                             // JSON - > OBJECT
                             // Bóc json sang model SearchResponse
                             val searchResponse = gson.fromJson(body, SearchResponse::class.java)
 
-                            linkSearch = searchResponse.paging.next
-                            arrayData?.addAll(searchResponse.data)
+                            //linkSearch = searchResponse.paging.next
+                         //   arrayData?.addAll(searchResponse.data)
 
                             //add to RecyclerView
-                            rvList.adapter?.notifyDataSetChanged()
+                            //rvList.adapter?.notifyDataSetChanged()
 
                         } catch (error: Exception) {
                             println("Error: " + error)

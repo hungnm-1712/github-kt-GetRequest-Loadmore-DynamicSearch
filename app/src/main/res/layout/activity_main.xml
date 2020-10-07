@@ -5,11 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="22sp"
-        android:id="@+id/tvText"/>
+
     <Button
         android:id="@+id/btnLoadList"
         android:layout_width="wrap_content"
@@ -22,12 +18,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLoadList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

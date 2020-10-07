@@ -22,7 +22,7 @@
 //        // Khi còn dữ liệu thì hiển thị, hết dữ liệu thì hiện ProgressBar
 //        return if (viewType === VIEW_TYPE_MIXCLOUD) {
 //            val view: View = LayoutInflater.from(parent?.context)
-//                .inflate(R.layout.recyclerview_youtube, parent, false)
+//                .inflate(R.layout.rv_youtube, parent, false)
 //            return MixCLoudViewHolder(view)
 //        } else {
 //            val view: View =
